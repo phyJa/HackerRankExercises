@@ -127,16 +127,38 @@ var numbers = whereShouldBeNines[0];
 //Positions
 var positions = whereShouldBeNines[1];
 var positionsLength = positions.length;
-//Generate some squares
+//Generate the squares
 for(let i = 0; i < positionsLength; i += 2) {
-    //Position of the number
+    /*
+    Position of the number. "positions[i]" is the index of the row of 9 and "positions[i+1]"
+    its column index number.
+    */
     let positionOfNumber = [positions[i], positions[i + 1]];
     //Create a new array square
     let newArray = template_array(); 
     //Place 9 where it should be in the new array
     newArray[positionOfNumber[0]][positionOfNumber[1]] = 9;
+    //Now we use the function that deals with the eights
+    let whereShouldBeEights = where_should_be_eights(newArray, positionOfNumber[0], positionOfNumber[1]);
+    //Testing
+    //console.log(newArray);
+    //console.log(whereShouldBeEights);
+    //Deal with the positions of the eights
+    let eightPositions = whereShouldBeEights[1];
+    let positionsLength = eightPositions.length;
+    //Adding the eights
+    for(let j = 0; j < positionsLength; j += 2) {
+        if(j === 0) {
+            let positionOfNumber = [eightPositions[j], eightPositions[j + 1]];
+            newArray[positionOfNumber[0]][positionOfNumber[1]] = 8 ;
+        } else {
+            let positionOfNumber = [eightPositions[j + 1], eightPositions[j]];
+            newArray[positionOfNumber[0]][positionOfNumber[1]] = 6 ;
+        }
+        masterArray.push(newArray);
+    }
     //Add this array into the master array
-    masterArray.push(newArray);
+
 }
 //Testing
 console.log(masterArray);
