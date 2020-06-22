@@ -144,18 +144,41 @@ for(let i = 0; i < positionsLength; i += 2) {
     //console.log(newArray);
     //console.log(whereShouldBeEights);
     //Deal with the positions of the eights
+    //this will return an array with four numbers:
+    //[position i1, position j1, position i2, position j2]
     let eightPositions = whereShouldBeEights[1];
+    console.log(eightPositions);
     let positionsLength = eightPositions.length;
     //Adding the eights
-    for(let j = 0; j < positionsLength; j += 2) {
-        if(j === 0) {
-            let positionOfNumber = [eightPositions[j], eightPositions[j + 1]];
-            newArray[positionOfNumber[0]][positionOfNumber[1]] = 8 ;
+    for(let i = 0; i < 3 ; i += 2){
+        //The first two elements will be the i and j position of 8
+        //The second ones will be those of 6
+        if(i === 0){
+            //Create a new array square
+            let newArray = template_array(); 
+            //Place 9 where it should be in the new array
+            newArray[positionOfNumber[0]][positionOfNumber[1]] = 9;
+            //So, 8 , 6 and all the rest are determined
+            newArray[eightPositions[i]][eightPositions[i + 1]] = 8;
+            newArray[eightPositions[i + 2]][eightPositions[i + 3]] = 6;
+            //Five must be at [1][1]
+            newArray[1][1] = 5;
+            //...
+            masterArray.push(newArray);
         } else {
-            let positionOfNumber = [eightPositions[j + 1], eightPositions[j]];
-            newArray[positionOfNumber[0]][positionOfNumber[1]] = 6 ;
+            //Create a new array square
+            let newArray = template_array();
+            //Place 9 where it should be in the new array
+            newArray[positionOfNumber[0]][positionOfNumber[1]] = 9;
+            //So, 8 , 6 and all the rest are determined
+            newArray[eightPositions[i]][eightPositions[i + 1]] = 8;
+            newArray[eightPositions[i - 2]][eightPositions[i - 1]] = 6;
+            //Five must be at [1][1]
+            newArray[1][1] = 5;
+            //...
+            masterArray.push(newArray);
         }
-        masterArray.push(newArray);
+        
     }
     //Add this array into the master array
 
