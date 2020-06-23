@@ -95,21 +95,21 @@ function where_should_be_sevens(
     return numbersAndPositions;
 }
 
-//Create a function that finds where should be sixs
-function where_should_be_sixs(anArray, iPositionOfNine, jPositionOfNine) {
-    var numbers = [], positions = [];
-    var numbersAndPositions = [];
+//Create a function that sums the elements of the secondary diagonal
+function sum_secondary_diagonal(anArray) {
+    var numbers = [];
     for(let i = 0; i < 3; i++) {
         for(let j = 0; j < 3; j++) {
-            if( ( (i !== iPositionOfNine) && (j !== jPositionOfNine) ) && ( (Math.abs(i - j === 0)||(Math.abs(i - j === 2)) && (anArray[i][j] !== 8) ) ) ) {
+            if( i + j === 2 ) {
                 numbers.push(anArray[i][j]);
-                positions.push(i); positions.push(j);
             }
         }
     }
-    numbersAndPositions.push(numbers);
-    numbersAndPositions.push(positions);
-    return numbersAndPositions;
+    var sum = 0;
+    numbers.forEach(element => {
+        sum += element;
+    });
+    return sum;
 }
 
 //console.log(where_should_be_nines(s_definition());
@@ -163,6 +163,12 @@ for(let i = 0; i < positionsLength; i += 2) {
             newArray[eightPositions[i + 2]][eightPositions[i + 3]] = 6;
             //Five must be at [1][1]
             newArray[1][1] = 5;
+            //Put seven
+            let whereShouldBeSevens = where_should_be_sevens(newArray, positionOfNumber[0], positionOfNumber[1], eightPositions[i], eightPositions[i + 1]);
+            let positionOfSevens = whereShouldBeSevens[1];
+            newArray[positionOfSevens[0]][positionOfSevens[1]] = 7;
+            //Fill the secondary diagonal
+            let secondaryDiagNumber = 15 - sum_secondary_diagonal(newArray);
             //...
             masterArray.push(newArray);
         } else {
@@ -175,7 +181,10 @@ for(let i = 0; i < positionsLength; i += 2) {
             newArray[eightPositions[i - 2]][eightPositions[i - 1]] = 6;
             //Five must be at [1][1]
             newArray[1][1] = 5;
-            //...
+            //Put seven
+            let whereShouldBeSevens = where_should_be_sevens(newArray, positionOfNumber[0], positionOfNumber[1], eightPositions[i], eightPositions[i + 1]);
+            let positionOfSevens = whereShouldBeSevens[1];
+            newArray[positionOfSevens[0]][positionOfSevens[1]] = 7;
             masterArray.push(newArray);
         }
         
