@@ -105,15 +105,80 @@ function sum_secondary_diagonal(anArray) {
             }
         }
     }
+    //This part of the function finds the position of 0
+    var positionOfZeros = [];
+    for(let i = 0; i < 3; i++) {
+        for(let j = 0; j < 3; j++) {
+            if( i + j === 2 && anArray[i][j] === 0 ) {
+                positionOfZeros.push(i);
+                positionOfZeros.push(j);
+            }
+        }
+    }
+    //Calculate the sum
     var sum = 0;
     numbers.forEach(element => {
         sum += element;
     });
-    return sum;
+    //Store the sum and the position of zeros
+    var sumAndZeros = [sum, positionOfZeros];
+    return sumAndZeros;
 }
 
-//console.log(where_should_be_nines(s_definition());
+//Create a function that sums the elements of the main diagonal
+function sum_main_diagonal(anArray) {
+    var numbers = [];
+    for(let i = 0; i < 3; i++) {
+        for(let j = 0; j < 3; j++) {
+            if( i === j ) {
+                numbers.push(anArray[i][j]);
+            }
+        }
+    }
+    //This part of the function finds the position of 0
+    var positionOfZeros = [];
+    for(let i = 0; i < 3; i++) {
+        for(let j = 0; j < 3; j++) {
+            if( i === j && anArray[i][j] === 0 ) {
+                positionOfZeros.push(i);
+                positionOfZeros.push(j);
+            }
+        }
+    }
+    //Calculate the sum
+    var sum = 0;
+    numbers.forEach(element => {
+        sum += element;
+    });
+    //Store the sum and the position of zeros
+    var sumAndZeros = [sum, positionOfZeros];
+    return sumAndZeros;
+}
 
+//Create a function that sums the elements of the lines
+function sum_lines(anArray) {
+    var sumOfLines = [];
+    for(let i = 0; i < 3; i++) {
+        let line = anArray[i], sum = 0;
+        for(let j = 0; j < 3; j++) {
+            sum += line[j];
+        }
+        sumOfLines.push(sum);
+    }
+    //This part of the function finds the position of 0
+    var positionOfZeros = [];
+    for(let i = 0; i < 3; i++) {
+        for(let j = 0; j < 3; j++) {
+            if(anArray[i][j] === 0 ) {
+                positionOfZeros.push(i);
+                positionOfZeros.push(j);
+            }
+        }
+    }
+    //Store the sum and the position of zeros
+    var sumAndZeros = [sumOfLines, positionOfZeros];
+    return sumAndZeros;
+}
 /*
 Take the first number and its position 
 of the array. And create a variable
@@ -168,8 +233,23 @@ for(let i = 0; i < positionsLength; i += 2) {
             let positionOfSevens = whereShouldBeSevens[1];
             newArray[positionOfSevens[0]][positionOfSevens[1]] = 7;
             //Fill the secondary diagonal
-            let secondaryDiagNumber = 15 - sum_secondary_diagonal(newArray);
-            //...
+            let dataOfSecondaryDiagonal = sum_secondary_diagonal(newArray);
+            let sumOfSecondaryDiagonal = dataOfSecondaryDiagonal[0];
+            let numberThatLasts = 15 - sumOfSecondaryDiagonal;
+            //positionOfZeros: an array with two numbers
+            let positionOfZeros = dataOfSecondaryDiagonal[1]; 
+            //Find where there is 0 in the secondary diagonal
+            newArray[positionOfZeros[0]][positionOfZeros[1]] = numberThatLasts;
+            //Fill the main diagonal
+            let dataOfMainDiagonal = sum_main_diagonal(newArray);
+            let sumOfMainDiagonal = dataOfMainDiagonal[0];
+            let lastNumber = 15 - sumOfMainDiagonal;
+            //newPositionOfZeros: an array with two numbers
+            let newPositionOfZeros = dataOfMainDiagonal[1]; 
+            //Find where there is 0 in the secondary diagonal
+            newArray[newPositionOfZeros[0]][newPositionOfZeros[1]] = lastNumber;
+            //Testing
+            //console.log(sum_lines(newArray));
             masterArray.push(newArray);
         } else {
             //Create a new array square
@@ -185,6 +265,22 @@ for(let i = 0; i < positionsLength; i += 2) {
             let whereShouldBeSevens = where_should_be_sevens(newArray, positionOfNumber[0], positionOfNumber[1], eightPositions[i], eightPositions[i + 1]);
             let positionOfSevens = whereShouldBeSevens[1];
             newArray[positionOfSevens[0]][positionOfSevens[1]] = 7;
+            //Fill the secondary diagonal
+            let dataOfSecondaryDiagonal = sum_secondary_diagonal(newArray);
+            let sumOfSecondaryDiagonal = dataOfSecondaryDiagonal[0];
+            let numberThatLasts = 15 - sumOfSecondaryDiagonal;
+            //positionOfZeros: an array with two numbers
+            let positionOfZeros = dataOfSecondaryDiagonal[1]; 
+            //Find where there is 0 in the secondary diagonal
+            newArray[positionOfZeros[0]][positionOfZeros[1]] = numberThatLasts;
+            //Fill the main diagonal
+            let dataOfMainDiagonal = sum_main_diagonal(newArray);
+            let sumOfMainDiagonal = dataOfMainDiagonal[0];
+            let lastNumber = 15 - sumOfMainDiagonal;
+            //newPositionOfZeros: an array with two numbers
+            let newPositionOfZeros = dataOfMainDiagonal[1]; 
+            //Find where there is 0 in the secondary diagonal
+            newArray[newPositionOfZeros[0]][newPositionOfZeros[1]] = lastNumber;
             masterArray.push(newArray);
         }
         
