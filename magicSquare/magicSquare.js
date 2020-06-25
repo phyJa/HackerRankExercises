@@ -179,6 +179,20 @@ function sum_lines(anArray) {
     var sumAndZeros = [sumOfLines, positionOfZeros];
     return sumAndZeros;
 }
+
+//Create a function with calculates the total cost
+function totalCosts(otherArray, anArrayMaster) {
+    let anArrayMasterLength = anArrayMaster.length;
+    let totalCosts = [];
+    for(let i = 0; i < anArrayMasterLength; i++){
+        for(let j = 0; j < 3; j++ ) {
+            for(let k = 0; k < 3; k++) {
+                totalCosts.push(otherArray[j][k] - anArrayMaster[i][j][k]);
+            }
+        }
+    }
+    return totalCosts;
+}
 /*
 Take the first number and its position 
 of the array. And create a variable
@@ -212,9 +226,8 @@ for(let i = 0; i < positionsLength; i += 2) {
     //this will return an array with four numbers:
     //[position i1, position j1, position i2, position j2]
     let eightPositions = whereShouldBeEights[1];
-    console.log(eightPositions);
     let positionsLength = eightPositions.length;
-    //Adding the eights
+    //Generating the squares
     for(let i = 0; i < 3 ; i += 2){
         //The first two elements will be the i and j position of 8
         //The second ones will be those of 6
@@ -248,8 +261,22 @@ for(let i = 0; i < positionsLength; i += 2) {
             let newPositionOfZeros = dataOfMainDiagonal[1]; 
             //Find where there is 0 in the secondary diagonal
             newArray[newPositionOfZeros[0]][newPositionOfZeros[1]] = lastNumber;
-            //Testing
-            //console.log(sum_lines(newArray));
+            //Dealing with the lines
+            let lineData = sum_lines(newArray);
+            let lineSums = lineData[0];
+            let lastNumbers = [];
+            for(let l = 0; l < 3; l++) {
+                if(lineSums[l] != 15) {
+                    lastNumbers.push(15 - lineSums[l]);
+                }
+            }
+            let zerosInLines = lineData[1];
+            
+            //The first zero
+            newArray[zerosInLines[0]][zerosInLines[1]] = lastNumbers[0];
+            //The second zero
+            newArray[zerosInLines[2]][zerosInLines[3]] = lastNumbers[1];
+            //Add the array in the master Array
             masterArray.push(newArray);
         } else {
             //Create a new array square
@@ -281,6 +308,22 @@ for(let i = 0; i < positionsLength; i += 2) {
             let newPositionOfZeros = dataOfMainDiagonal[1]; 
             //Find where there is 0 in the secondary diagonal
             newArray[newPositionOfZeros[0]][newPositionOfZeros[1]] = lastNumber;
+            //Dealing with the lines
+            let lineData = sum_lines(newArray);
+            let lineSums = lineData[0];
+            let lastNumbers = [];
+            for(let l = 0; l < 3; l++) {
+                if(lineSums[l] != 15) {
+                    lastNumbers.push(15 - lineSums[l]);
+                }
+            }
+            let zerosInLines = lineData[1];
+            
+            //The first zero
+            newArray[zerosInLines[0]][zerosInLines[1]] = lastNumbers[0];
+            //The second zero
+            newArray[zerosInLines[2]][zerosInLines[3]] = lastNumbers[1];
+            //Add the array in the master Array
             masterArray.push(newArray);
         }
         
@@ -288,5 +331,7 @@ for(let i = 0; i < positionsLength; i += 2) {
     //Add this array into the master array
 
 }
+
 //Testing
 console.log(masterArray);
+console.log(totalCosts(s_definition(), masterArray));
