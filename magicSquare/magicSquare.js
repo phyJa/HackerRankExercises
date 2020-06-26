@@ -4,9 +4,9 @@ var masterArray = [];
 //Define the original array
 function s_definition(){
     let s = [
-        [1, 2, 3],
-        [6, 4, 8],
-        [5, 7, 9]
+        [4, 9, 2],
+        [3, 5, 7],
+        [8, 1, 5]
     ];
     return s;
 }
@@ -185,11 +185,14 @@ function totalCosts(otherArray, anArrayMaster) {
     let anArrayMasterLength = anArrayMaster.length;
     let totalCosts = [];
     for(let i = 0; i < anArrayMasterLength; i++){
+        //Generate a new sum
+        let sum = 0;
         for(let j = 0; j < 3; j++ ) {
             for(let k = 0; k < 3; k++) {
-                totalCosts.push(otherArray[j][k] - anArrayMaster[i][j][k]);
+                sum += Math.abs(otherArray[j][k] - anArrayMaster[i][j][k]);
             }
         }
+        totalCosts.push(sum);
     }
     return totalCosts;
 }
@@ -332,6 +335,18 @@ for(let i = 0; i < positionsLength; i += 2) {
 
 }
 
-//Testing
-console.log(masterArray);
-console.log(totalCosts(s_definition(), masterArray));
+//Store the costs in this variable
+let costs = totalCosts(s_definition(), masterArray);
+
+//Now, find the minimun value of costs
+var minimumValue = Infinity;
+var costsLength = costs.length;
+//Loop and set it
+for(let i = 0; i < costsLength; i++) {
+    if(minimumValue > costs[i]) {
+        minimumValue = costs[i];
+    }
+}
+console.log(costs);
+//Print the minimum cost
+console.log(minimumValue);
