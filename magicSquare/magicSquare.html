@@ -7,6 +7,46 @@
 </head>
 <body>
     <h2> Magic square </h2>
+    <p> Type your square here</p>
+    <table>
+        <tr>
+            <td> <input type="number" name="first" id="a00"> </td>
+            <td> <input type="number" name="second" id="a01"> </td>
+            <td> <input type="number" name="third" id="a02"> </td>
+        </tr>
+        <tr>
+            <td> <input type="number" name="fourth" id="a10"> </td>
+            <td> <input type="number" name="fifth" id="a11"> </td>
+            <td> <input type="number" name="sixth" id="a12"> </td>
+        </tr>
+        <tr>
+            <td> <input type="number" name="seventh" id="a20"> </td>
+            <td> <input type="number" name="eighth" id="a21"> </td>
+            <td> <input type="number" name="ninth" id="a22"> </td>
+        </tr>
+    </table>
+    <button onclick="s_definition()">Submit</button>
+    Your magic square:
+    <table>
+        <tr>
+            <td> 1 </td>
+            <td> 2 </td>
+            <td> 3 </td>
+        </tr>
+        <tr>
+            <td> 4 </td>
+            <td> 5 </td>
+            <td> 6 </td>
+        </tr>
+        <tr>
+            <td> 7 </td>
+            <td> 8 </td>
+            <td> 9 </td>
+        </tr>
+    </table>
     <script src="magicSquare.js"></script>
+    <!--MathJax-->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </body>
 </html>

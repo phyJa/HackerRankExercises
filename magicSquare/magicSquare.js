@@ -4,9 +4,9 @@ var masterArray = [];
 //Define the original array
 function s_definition(){
     let s = [
-        [4, 9, 2],
-        [3, 5, 7],
-        [8, 1, 5]
+        [document.getElementById("a00").value, document.getElementById("a01").value, document.getElementById("a02").value],
+        [document.getElementById("a10").value, document.getElementById("a11").value, document.getElementById("a12").value],
+        [document.getElementById("a20").value, document.getElementById("a21").value, document.getElementById("a22").value]
     ];
     return s;
 }
